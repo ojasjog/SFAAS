@@ -123,7 +123,7 @@ cd seasonal-forecast-advisory
 ### 2. Install Dependencies
 
 ```bash
-pip install tabulate pandas
+pip install tabulate 
 ```
 
 ### 3. Run the Program
