@@ -1,7 +1,7 @@
 # Seasonal-Forecast-Agriculture-Advisory-System-
 
 
-Here’s a polished **README.md** for your GitHub project:
+
 
 ---
 
