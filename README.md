@@ -116,7 +116,7 @@ Data is persisted in **JSON/CSV files**:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/seasonal-forecast-advisory.git
+git clone https://github.com/ojasjog/seasonal-forecast-advisory.git
 cd seasonal-forecast-advisory
 ```
 
