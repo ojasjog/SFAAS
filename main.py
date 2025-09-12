@@ -1,9 +1,3 @@
-# admin_login = int(input())
-# admin_menu = int(input())
-# farmer_login = int(input())
-# farmer_entry = int(input())
-# register_farmer = int(input())
-
 import time
 from rich.console import Console
 console = Console()
