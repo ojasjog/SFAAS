@@ -25,7 +25,7 @@ if choice == "1":
     print("Admin")
 elif choice == "2":
     for i in range(1,4):
-        console.log(f"Doing important stuff...{i}")
+        console.log(f"Doing important stuff....{i}")
         time.sleep(0.25)
     print("Farmer")
 elif choice == "3":
