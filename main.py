@@ -5,7 +5,40 @@ import json
 import os
 from datetime import datetime   
 
-#admin login
+#-----------------------------Read list from file---------------------------
+
+def read_data():
+
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE, "r") as f:
+            try:
+                return json.load(f)
+            except json.JSONDecodeError:
+                    return []
+    return []
+
+
+
+
+#------------------------Write list to file------------------------------   
+
+def write_data(data):
+            
+    with open(DATA_FILE, "w") as f:
+        json.dump(data, f, indent=2)
+
+#-----------------------Save list back to file------------------------------
+
+def save_entry(entry):
+
+
+    data = read_data()
+    data.append(entry)
+    write_data(data)
+    print("✅ Saved:")
+
+#-----------------------------Admin login-----------------------------------------
+
 def admin_login():
     
     print("\n--- Admin Menu ---")
@@ -17,84 +50,10 @@ def admin_login():
     print("6. Manage Farmer Queries")
     print("7. Logout")
 
-    choice = input("Enter choice: ")
-
-    if choice == "1":
-       
-       DATA_FILE = "forecasts.json"
+    
 
 
-        # Read file into list
-       def read_data():
-        if os.path.exists(DATA_FILE):
-            with open(DATA_FILE, "r") as f:
-                try:
-                    return json.load(f)
-                except json.JSONDecodeError:
-                    return []
-        return []
-
-        # Save list back to file
-       def write_data(data):
-            
-            with open(DATA_FILE, "w") as f:
-                json.dump(data, f, indent=2)
-
-       def save_entry(entry):
-
-        data = read_data()
-        data.append(entry)
-        write_data(data)
-        print("✅ Saved:", entry)
-
-        if __name__ == "__main__":
-            # Take inputs from user
-            season = input("Enter season: ")
-            region = input("Enter region: ")
-            start_date = input("Enter start date: ")
-            end_date=input("Enter end date: ")
-            rainfall=input("Enter rainfall(in mm): ")
-            temperature=input("Enter temperature(in °C): ")
-            humidity=input("Enter humidity(in %): ")
-            crop_suggestions=input("Enter crop suggestions: ")
-            pest_alert=input("Enter pest alert: ")
-            advisory_notes=input("Enter advisory notes: ")
-
-
-            # Create an entry dictionary
-            entry = {
-                "season": season,
-                "region": region,
-                "dates": {"start": start_date, 
-                          "end": end_date},
-                "weather_forecast": {
-                    "rainfall": rainfall, "temperature": temperature, "humidity": humidity
-                },
-                "crop_suggestions": list(crop_suggestions.split(",")),
-                "pest_alert": list(pest_alert.split(",")),
-                "advisory_notes": advisory_notes,
-                "timestamp": datetime.now().isoformat()
-            }
-
-            # Save entry dictionary to file
-            save_entry(entry)      
-    elif choice == "2":
-        print("Loading 2")
-    elif choice == "3":
-        print("Loading 3")
-    elif choice == "4":
-        print("Loading 4")
-    elif choice == "5":
-        print("Loading 5")
-    elif choice == "6":
-        print("Loading 6")
-    elif choice == "7":
-        print("Logging out...")
-    else:
-        print("Invalid choice.")
-
-
-#farmer login
+#---------------------------Farmer login-----------------------------------
 def farmer_login():
     print("\n--- Farmer Menu ---")
     print("1. View Seasonal Forecast")
@@ -121,7 +80,9 @@ def farmer_login():
     else:
         print("Nothing updated")
 
-#main menu (starting)
+#---------------------------Main Menu-----------------------------------
+
+
 print("\n== Seasonal Forecast & Agriculture Advisory System ===")
 print("1. Admin Login")
 print("2. Farmer Login")
@@ -135,6 +96,53 @@ if choice == "1":
         console.log(f"Loading data...{i}")
         time.sleep(0.25)
     admin_login()
+    choice= input("Enter choice: ")
+
+    DATA_FILE = "forecasts.json"
+
+    if choice == "1":  
+        season = input("Enter season: ")
+        region = input("Enter region: ")
+        start_date = input("Enter start date: ")
+        end_date=input("Enter end date: ")
+        rainfall=input("Enter rainfall(in mm): ")
+        temperature=input("Enter temperature(in °C): ")
+        humidity=input("Enter humidity(in %): ")
+        crop_suggestions=input("Enter crop suggestions: ")
+        pest_alert=input("Enter pest alert: ")
+        advisory_notes=input("Enter advisory notes: ")
+
+
+        entry = {
+                "season": season,
+                "region": region,
+                "dates": {"start": start_date, 
+                          "end": end_date},
+                "weather_forecast": {
+                    "rainfall": rainfall, "temperature": temperature, "humidity": humidity
+                },
+                "crop_suggestions": list(crop_suggestions.split(",")),
+                "pest_alert": list(pest_alert.split(",")),
+                "advisory_notes": advisory_notes,
+                "timestamp": datetime.now().isoformat()
+            }
+        save_entry(entry)   
+            
+               
+    elif choice == "2":
+        print("Loading 2")
+    elif choice == "3":
+        print("Loading 3")
+    elif choice == "4":
+        print("Loading 4")
+    elif choice == "5":
+        print("Loading 5")
+    elif choice == "6":
+        print("Loading 6")
+    elif choice == "7":
+        print("Logging out...")
+    else:
+        print("Invalid choice.")
 
 
 
