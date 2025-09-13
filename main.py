@@ -44,7 +44,7 @@ def admin_login():
     print("\n--- Admin Menu ---")
     print("1. Add Seasonal Forecast")
     print("2. Update/Delete Forecast")
-    print("3. Manage Forecast")
+    print("3. Manage Crop Advisories")
     print("4. Upload Bulk Forecast Data")
     print("5. Generate Reports")
     print("6. Manage Farmer Queries")
