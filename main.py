@@ -44,7 +44,7 @@ def admin_login():
     print("\n--- Admin Menu ---")
     print("1. Add Seasonal Forecast")
     print("2. Update/Delete Forecast")
-    print("3. Manage Forecast")
+    print("3. Manage Crop Advisories")
     print("4. Upload Bulk Forecast Data")
     print("5. Generate Reports")
     print("6. Manage Farmer Queries")
@@ -98,10 +98,15 @@ if choice == "1":
     admin_login()
     choice= input("Enter choice: ")
 
+<<<<<<< HEAD
     DATA_FILE = "forecasts.json" 
 
     if choice == "1": 
         
+=======
+    if choice == "1":
+        DATA_FILE = "forecasts.json"  
+>>>>>>> 8e35fe43fef64133c99bdc9c37cace7e33f6b3c4
         season = input("Enter season: ")
         region = input("Enter region: ")
         start_date = input("Enter start date: ")
@@ -111,7 +116,7 @@ if choice == "1":
         humidity=input("Enter humidity(in %): ")
         crop_suggestions=input("Enter crop suggestions: ")
         pest_alert=input("Enter pest alert: ")
-        advisory_notes=input("Enter advisory notes: ")
+        
 
 
         entry = {
@@ -124,7 +129,7 @@ if choice == "1":
                 },
                 "crop_suggestions": list(crop_suggestions.split(",")),
                 "pest_alert": list(pest_alert.split(",")),
-                "advisory_notes": advisory_notes,
+                
                 "timestamp": datetime.now().isoformat()
             }
         save_entry(entry)   
@@ -133,7 +138,23 @@ if choice == "1":
     elif choice == "2":
         print("Loading 2")
     elif choice == "3":
-        print("Loading 3")
+        DATA_FILE = "advisory.json" 
+        Crop=input("Enter Crop Name: ") 
+        Season=input("Enter Season: ")
+        Practices=input("Enter Appropriate Practices: ")
+        Fertilizers=input("Enter Fertilizers Name: ")
+        Precausion=input("Enter Precaution to be taken: ")
+
+
+        entry = {
+            "Crop":Crop,
+            "Season":Season,
+            "Practices":Practices,
+            "Fertilizers":Fertilizers,
+            "Precausion":Precausion,
+            "timestamp": datetime.now().isoformat()
+            }
+        save_entry(entry)   
     elif choice == "4":
         print("Loading 4")
     elif choice == "5":
