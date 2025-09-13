@@ -132,6 +132,7 @@ if choice == "1":
         print("Loading 2")
     elif choice == "3":
         DATA_FILE = "advisory.json" 
+        
         Crop=input("Enter Crop Name: ") 
         Season=input("Enter Season: ")
         Practices=input("Enter Appropriate Practices: ")
