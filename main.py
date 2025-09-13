@@ -109,7 +109,7 @@ if choice == "1":
         humidity=input("Enter humidity(in %): ")
         crop_suggestions=input("Enter crop suggestions: ")
         pest_alert=input("Enter pest alert: ")
-        advisory_notes=input("Enter advisory notes: ")
+        
 
 
         entry = {
@@ -122,7 +122,7 @@ if choice == "1":
                 },
                 "crop_suggestions": list(crop_suggestions.split(",")),
                 "pest_alert": list(pest_alert.split(",")),
-                "advisory_notes": advisory_notes,
+                
                 "timestamp": datetime.now().isoformat()
             }
         save_entry(entry)   
