@@ -98,15 +98,8 @@ if choice == "1":
     admin_login()
     choice= input("Enter choice: ")
 
-<<<<<<< HEAD
-    DATA_FILE = "forecasts.json" 
-
-    if choice == "1": 
-        
-=======
     if choice == "1":
         DATA_FILE = "forecasts.json"  
->>>>>>> 8e35fe43fef64133c99bdc9c37cace7e33f6b3c4
         season = input("Enter season: ")
         region = input("Enter region: ")
         start_date = input("Enter start date: ")
