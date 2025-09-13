@@ -131,7 +131,23 @@ if choice == "1":
     elif choice == "2":
         print("Loading 2")
     elif choice == "3":
-        print("Loading 3")
+        DATA_FILE = "advisory.json" 
+        Crop=input("Enter Crop Name: ") 
+        Season=input("Enter Season: ")
+        Practices=input("Enter Appropriate Practices: ")
+        Fertilizers=input("Enter Fertilizers Name: ")
+        Precausion=input("Enter Precaution to be taken: ")
+
+
+        entry = {
+            "Crop":Crop,
+            "Season":Season,
+            "Practices":Practices,
+            "Fertilizers":Fertilizers,
+            "Precausion":Precausion,
+            "timestamp": datetime.now().isoformat()
+            }
+        save_entry(entry)   
     elif choice == "4":
         print("Loading 4")
     elif choice == "5":
