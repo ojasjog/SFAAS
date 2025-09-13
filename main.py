@@ -125,7 +125,8 @@ if choice == "1":
                 
                 "timestamp": datetime.now().isoformat()
             }
-        save_entry(entry)   
+        save_entry(entry)  
+         
             
                
     elif choice == "2":
@@ -148,7 +149,8 @@ if choice == "1":
             "Precausion":Precausion,
             "timestamp": datetime.now().isoformat()
             }
-        save_entry(entry)   
+        save_entry(entry)
+          
     elif choice == "4":
         print("Loading 4")
     elif choice == "5":
