@@ -41,7 +41,7 @@ def save_entry(entry):
 
 def admin_login():
     
-    print("\n--- Admin Menu ---")
+    console.print("\n--- Admin Menu ---", style="bold underline black on white")
     print("1. Add Seasonal Forecast")
     print("2. Update/Delete Forecast")
     print("3. Manage Crop Advisories")
@@ -51,11 +51,11 @@ def admin_login():
     print("7. Logout")
 
     
-
+from rich.console import Console
 
 #---------------------------Farmer login-----------------------------------
 def farmer_login():
-    print("\n--- Farmer Menu ---")
+    console.print("\n--- Farmer Menu ---", style="bold underline black on white")
     print("1. View Seasonal Forecast")
     print("2. Access Crop Advisories")
     print("3. Search Historical Data")
@@ -66,24 +66,56 @@ def farmer_login():
     choice = input("Enter choice: ")
 
     if choice == "1":
+
+        from rich.progress import track
+        import time
+
+        for i in track(range(1,4), description="Processing..."):
+            print(f"working {i}")
+            time.sleep(0.25)
+
         print("Loading 1")
     elif choice == "2":
+
+        from rich.progress import track
+        import time
+
+        for i in track(range(1,4), description="Processing..."):
+            print(f"working {i}")
+            time.sleep(0.25)
+
         print("Loading 2")
     elif choice == "3":
+
+        from rich.progress import track
+        import time
+
+        for i in track(range(1,4), description="Searching..."):
+            print(f"working {i}")
+            time.sleep(0.25)
+
         print("Loading 3")
     elif choice == "4":
         print("Loading 4")
     elif choice == "5":
         print("Loading 5")
     elif choice == "6":
-        print("Logging out...")
+        from rich.progress import track
+        import time
+
+        for i in track(range(1,4), description="Logging out..."):
+            print(f"working {i}")
+            time.sleep(0.25)
+
+
+        console.print("Logged out succesfully", style="red")
     else:
         print("Nothing updated")
 
 #---------------------------Main Menu-----------------------------------
 
 
-print("\n== Seasonal Forecast & Agriculture Advisory System ===")
+console.print("\n== Seasonal Forecast & Agriculture Advisory System ===", style="bold underline black on white")
 print("1. Admin Login")
 print("2. Farmer Login")
 print("3. Register as New Farmer")
@@ -99,6 +131,16 @@ if choice == "1":
     choice= input("Enter choice: ")
 
     if choice == "1":
+
+        from rich.progress import track
+        import time
+
+        for i in track(range(1,4), description="Processing..."):
+            print(f"working {i}")
+            time.sleep(0.25)
+
+
+
         DATA_FILE = "forecasts.json"  
         season = input("Enter season: ")
         region = input("Enter region: ")
@@ -130,7 +172,16 @@ if choice == "1":
             
                
     elif choice == "2":
+
+        from rich.progress import track
+        import time
+
+        for i in track(range(1,4), description="Processing..."):
+            print(f"working {i}")
+            time.sleep(0.25)
+
         print("Loading 2")
+
     elif choice == "3":
         DATA_FILE = "advisory.json" 
         
@@ -154,11 +205,20 @@ if choice == "1":
     elif choice == "4":
         print("Loading 4")
     elif choice == "5":
+
+        from rich.progress import track
+        import time
+
+        for i in track(range(1,4), description="Processing..."):
+            print(f"working {i}")
+            time.sleep(0.25)
+
         print("Loading 5")
+
     elif choice == "6":
         print("Loading 6")
     elif choice == "7":
-        print("Logging out...")
+        console.print("Logging out...", style="red")
     else:
         print("Invalid choice.")
 
@@ -174,11 +234,13 @@ elif choice == "3":
     for i in range(1, 4):
         console.log(f"Loading data...{i}")
         time.sleep(0.25)
+
+
     print("Registration")
 
 elif choice == "4":
-    print("Closed succesfully.")
+    console.print("Closed succesfully.", style="red")
 
 else:
-    print("Invalid choice. Try again.")
+    console.print("Invalid choice. Try again.", style="red")
 
