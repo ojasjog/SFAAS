@@ -168,9 +168,8 @@ if choice == "1":
                 "timestamp": datetime.now().isoformat()
             }
         save_entry(entry)  
-         
-            
-               
+
+        
     elif choice == "2":
 
         from rich.progress import track
