@@ -49,7 +49,7 @@ def admin_login():
     print("5. Generate Reports")
     print("6. Manage Farmer Queries")
     print("7. Logout")
-    print("8. Exit")
+   
 
     
 from rich.console import Console
