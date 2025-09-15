@@ -70,8 +70,8 @@ def farmer_login():
         from rich.progress import track
         import time
 
-        for i in track(range(1,4), description="Processing..."):
-            print(f"working {i}")
+        for i in track(range(1,4), description="Processing"):
+            print
             time.sleep(0.25)
 
         print("Loading 1")
@@ -80,8 +80,8 @@ def farmer_login():
         from rich.progress import track
         import time
 
-        for i in track(range(1,4), description="Processing..."):
-            print(f"working {i}")
+        for i in track(range(1,4), description="Processing"):
+            print
             time.sleep(0.25)
 
         print("Loading 2")
@@ -90,8 +90,8 @@ def farmer_login():
         from rich.progress import track
         import time
 
-        for i in track(range(1,4), description="Searching..."):
-            print(f"working {i}")
+        for i in track(range(1,4), description="Searching"):
+            print
             time.sleep(0.25)
 
         print("Loading 3")
@@ -103,8 +103,8 @@ def farmer_login():
         from rich.progress import track
         import time
 
-        for i in track(range(1,4), description="Logging out..."):
-            print(f"working {i}")
+        for i in track(range(1,4), description="Logging out"):
+            print
             time.sleep(0.25)
 
 
@@ -135,8 +135,8 @@ if choice == "1":
         from rich.progress import track
         import time
 
-        for i in track(range(1,4), description="Processing..."):
-            print(f"working {i}")
+        for i in track(range(1,4), description="Processing"):
+            print
             time.sleep(0.25)
 
 
@@ -176,8 +176,8 @@ if choice == "1":
         from rich.progress import track
         import time
 
-        for i in track(range(1,4), description="Processing..."):
-            print(f"working {i}")
+        for i in track(range(1,4), description="Processing"):
+            print
             time.sleep(0.25)
 
         print("Loading 2")
@@ -209,8 +209,8 @@ if choice == "1":
         from rich.progress import track
         import time
 
-        for i in track(range(1,4), description="Processing..."):
-            print(f"working {i}")
+        for i in track(range(1,4), description="Processing"):
+            print
             time.sleep(0.25)
 
         print("Loading 5")
