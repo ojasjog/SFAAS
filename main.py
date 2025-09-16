@@ -6,36 +6,31 @@ import os
 from datetime import datetime   
 from rich.progress import track
 
+FARMERS_FILE = "farmers.json"   # file for farmers
+
 #-----------------------------Read list from file---------------------------
 
-def read_data():
-
-    if os.path.exists(DATA_FILE):
-        with open(DATA_FILE, "r") as f:
+def read_data(file):
+    if os.path.exists(file):
+        with open(file, "r") as f:
             try:
                 return json.load(f)
             except json.JSONDecodeError:
-                    return []
+                return []
     return []
-
-
-
 
 #------------------------Write list to file------------------------------   
 
-def write_data(data):
-            
-    with open(DATA_FILE, "w") as f:
+def write_data(file, data):        
+    with open(file, "w") as f:
         json.dump(data, f, indent=2)
 
 #-----------------------Save list back to file------------------------------
 
-def save_entry(entry):
-
-
-    data = read_data()
+def save_entry(file, entry):
+    data = read_data(file)
     data.append(entry)
-    write_data(data)
+    write_data(file, data)
     print("✅ Saved:")
     time.sleep(1)
 
@@ -70,84 +65,61 @@ def admin_login():
             pest_alert=input("Enter pest alert (comma-separated): ")
 
             entry = {
-                    "season": season,
-                    "region": region,
-                    "dates": {"start": start_date, 
-                              "end": end_date},
-                    "weather_forecast": {
-                        "rainfall": rainfall, "temperature": temperature, "humidity": humidity
-                    },
-                    "crop_suggestions": list(crop_suggestions.split(",")),
-                    "pest_alert": list(pest_alert.split(",")),
-                    
-                    "timestamp": datetime.now().isoformat()
-                }
-            save_entry(entry)  
+                "season": season,
+                "region": region,
+                "dates": {"start": start_date, "end": end_date},
+                "weather_forecast": {
+                    "rainfall": rainfall, "temperature": temperature, "humidity": humidity
+                },
+                "crop_suggestions": list(crop_suggestions.split(",")),
+                "pest_alert": list(pest_alert.split(",")),
+                "timestamp": datetime.now().isoformat()
+            }
+            save_entry(DATA_FILE, entry)  
             console.print("Returning to Admin Menu...", style="green")
             time.sleep(1)
 
         elif choice == "2":
             for i in track(range(1,4), description="Processing"):
-                print
                 time.sleep(0.25)
             print("Loading 2")
             time.sleep(1)
-            print("Returning to Admin Menu...")
-            time.sleep(1)
-
 
         elif choice == "3":
             DATA_FILE = "advisory.json" 
-        
             Crop=input("Enter Crop Name: ") 
             Season=input("Enter Season: ")
             Practices=input("Enter Appropriate Practices: ")
             Fertilizers=input("Enter Fertilizers Name: ")
             Precausion=input("Enter Precaution to be taken: ")
 
-
             entry = {
-            "Crop":Crop,
-            "Season":Season,
-            "Practices":Practices,
-            "Fertilizers":Fertilizers,
-            "Precausion":Precausion,
-            "timestamp": datetime.now().isoformat()
+                "Crop":Crop,
+                "Season":Season,
+                "Practices":Practices,
+                "Fertilizers":Fertilizers,
+                "Precausion":Precausion,
+                "timestamp": datetime.now().isoformat()
             }
-            save_entry(entry)
+            save_entry(DATA_FILE, entry)
 
-
-          
         elif choice == "4":
             for i in track(range(1,4), description="Processing"):
-                print
                 time.sleep(0.25)
             print("Loading 4")
             time.sleep(1)
-            print("Returning to Admin Menu...")
-            time.sleep(1)
-
 
         elif choice == "5":
             for i in track(range(1,4), description="Processing"):
-                print
                 time.sleep(0.25)
-
             print("Loading 5")
             time.sleep(1)
-            print("Returning to Admin Menu...")
-            time.sleep(1)
-
 
         elif choice == "6":
             for i in track(range(1,4), description="Processing"):
-                print
                 time.sleep(0.25)
             print("Loading 6")
             time.sleep(1)
-            print("Returning to Admin Menu...")
-            time.sleep(1)
-
 
         elif choice == "7":
             console.print("Logging out...", style="red")
@@ -155,9 +127,9 @@ def admin_login():
         else:
             print("Invalid choice.")
 
-#---------------------------Farmer login-----------------------------------
-def farmer_login():
-    console.print("\n--- Farmer Menu ---", style="bold underline black on white")
+#---------------------------Farmer menu after login-------------------
+def farmer_login_menu(username):
+    console.print(f"\n--- Farmer Menu (Welcome {username}) ---", style="bold underline black on white")
     print("1. View Seasonal Forecast")
     print("2. Access Crop Advisories")
     print("3. Search Historical Data")
@@ -168,84 +140,81 @@ def farmer_login():
     choice = input("Enter choice: ")
 
     if choice == "1":
-        for i in track(range(1,4), description="Processing"):
-            print
-            time.sleep(0.25)
         print("Loading 1")
-
-
     elif choice == "2":
-        for i in track(range(1,4), description="Processing"):
-            print
-            time.sleep(0.25)
         print("Loading 2")
-
-
     elif choice == "3":
-        for i in track(range(1,4), description="Searching"):
-            print
-            time.sleep(0.25)
         print("Loading 3")
-
-
     elif choice == "4":
         print("Loading 4")
-
-
     elif choice == "5":
         print("Loading 5")
-
-
     elif choice == "6":
-        for i in track(range(1,4), description="Logging out"):
-            print
-            time.sleep(0.25)
-        console.print("Logged out succesfully", style="red")
-
+        console.print("Logged out successfully", style="red")
     else:
         print("Nothing updated")
+
+#---------------------------Farmer registration & login-------------------
+
+def register_farmer():
+    username = input("Choose a username: ").strip()
+    password = input("Set a password: ").strip()
+    region = input("Enter your region: ").strip()
+
+    farmers = read_data(FARMERS_FILE)
+    # Check if username already exists
+    for farmer in farmers:
+        if farmer.get("username") == username:
+            console.print("⚠ Username already exists! Try again.", style="red")
+            return
+
+    entry = {"username": username, "password": password, "region": region}
+    save_entry(FARMERS_FILE, entry)
+    console.print("✅ Registration successful!", style="green")
+
+def farmer_login():
+    # read the list of farmers (same format as registration)
+    username = input("Enter username: ").strip()
+    password = input("Enter password: ").strip()
+
+    farmers = read_data(FARMERS_FILE)  # returns list of dicts
+
+    # search the list for a matching username/password
+    for farmer in farmers:
+        if farmer.get("username") == username and farmer.get("password") == password:
+            console.print("✅ Login successful!", style="green")
+            farmer_login_menu(username)
+            return
+
+    else:
+        console.print("Invalid credentials", style="red")
+    return
+
 
 #---------------------------Main Menu-----------------------------------
 
 def main_menu():
-
     console.print("\n== Seasonal Forecast & Agriculture Advisory System ===", style="bold underline black on white")
     print("1. Admin Login")
     print("2. Farmer Login")
     print("3. Register as New Farmer")
     print("4. Exit")
 
-    
-
     choice = input("Enter choice: ")
 
     if choice == "1":
-        for i in range(1, 4):
-            console.log(f"Loading data...{i}")
-            time.sleep(0.25)
         admin_login()
-
     elif choice == "2":
-        for i in range(1, 4):
-            console.log(f"Loading data...{i}")
-            time.sleep(0.25)
         farmer_login()
-
     elif choice == "3":
-        for i in range(1, 4):
-            console.log(f"Loading data...{i}")
-            time.sleep(0.25)
-        print("Registration")
-
+        register_farmer()
     elif choice == "4":
-        console.print("Closed succesfully.", style="red")
+        console.print("Closed successfully.", style="red")
         exit()
-
     else:
         console.print("Invalid choice. Try again.", style="red")
 
 #--------------------Coming back to main menu after every logout----------------------------
-
 
 while True:
     main_menu()
