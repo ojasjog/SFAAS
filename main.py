@@ -6,8 +6,6 @@ import os
 from datetime import datetime   
 from rich.progress import track
 
-FARMERS_FILE = "farmers.json"   # file for farmers
-
 #-----------------------------Read list from file---------------------------
 
 def read_data(file):
@@ -128,6 +126,8 @@ def admin_login():
             print("Invalid choice.")
 
 #---------------------------Farmer menu after login-------------------
+
+FARMERS_FILE = "farmers.json" 
 def farmer_login_menu(username):
     console.print(f"\n--- Farmer Menu (Welcome {username}) ---", style="bold underline black on white")
     print("1. View Seasonal Forecast")
@@ -162,7 +162,7 @@ def register_farmer():
     region = input("Enter your region: ").strip()
 
     farmers = read_data(FARMERS_FILE)
-    # Check if username already exists
+    
     for farmer in farmers:
         if farmer.get("username") == username:
             console.print("⚠ Username already exists! Try again.", style="red")
@@ -173,13 +173,13 @@ def register_farmer():
     console.print("✅ Registration successful!", style="green")
 
 def farmer_login():
-    # read the list of farmers (same format as registration)
+    
     username = input("Enter username: ").strip()
     password = input("Enter password: ").strip()
 
-    farmers = read_data(FARMERS_FILE)  # returns list of dicts
+    farmers = read_data(FARMERS_FILE)  
 
-    # search the list for a matching username/password
+
     for farmer in farmers:
         if farmer.get("username") == username and farmer.get("password") == password:
             console.print("✅ Login successful!", style="green")
