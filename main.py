@@ -273,3 +273,4 @@ while True:
     if again.lower() != "y":
         console.print("Exiting application...", style="red")
         break
+    
