@@ -145,8 +145,9 @@ def farmer_login_menu(username):
         print("Loading 1")
     elif choice == "2":
         print("Loading 2")
+
     elif choice == "3":
-        print("Loading 3")  # pip install tabulate
+        print("Loading 3")  
         
 
         csv_folder = "data_csv"
@@ -273,4 +274,3 @@ while True:
     if again.lower() != "y":
         console.print("Exiting application...", style="red")
         break
-    
