@@ -5,7 +5,9 @@ import json
 import os
 from datetime import datetime   
 from rich.progress import track
-
+import pandas as pd
+pd.set_option('display.max_rows', None)
+from tabulate import tabulate
 #-----------------------------Read list from file---------------------------
 
 def read_data(file):
@@ -144,7 +146,56 @@ def farmer_login_menu(username):
     elif choice == "2":
         print("Loading 2")
     elif choice == "3":
-        print("Loading 3")
+        print("Loading 3")  # pip install tabulate
+        
+
+        csv_folder = "data_csv"
+        csv_files = [f for f in os.listdir(csv_folder) if f.endswith('.csv')]
+
+        print("="*50)
+        print("📂 Available CSV Files 📂".center(50))
+        print("="*50)
+        for i, file in enumerate(csv_files):
+            print(f"{i + 1}. {file}")
+        print("="*50)
+
+        try:
+            choice = int(input("Enter the number of the CSV file you want to display: "))
+            if 1 <= choice <= len(csv_files):
+                file_to_read = csv_files[choice - 1]
+                df = pd.read_csv(os.path.join(csv_folder, file_to_read))
+
+                print("\n" + "="*50)
+                print(f"📄 Displaying: {file_to_read}".center(50))
+                print(f"Shape: {df.shape[0]} rows x {df.shape[1]} columns".center(50))
+                print("="*50)
+
+                view_option = input("View (1) First & Last 5 rows or (2) Entire file? Enter 1 or 2: ").strip()
+        
+                if view_option == '1':
+                    print("\n--- First 5 Rows ---")
+                    print(tabulate(df.head(), headers='keys', tablefmt='fancy_grid', showindex=True))
+
+                    print("\n--- Last 5 Rows ---")
+                    print(tabulate(df.tail(), headers='keys', tablefmt='fancy_grid', showindex=True))
+
+                elif view_option == '2':
+                    print("\n--- Entire File ---")
+                    print(tabulate(df, headers='keys', tablefmt='fancy_grid', showindex=True))
+                else:
+                    print("❌ Invalid option. Showing first & last 5 rows by default.")
+                    print(tabulate(df.head(), headers='keys', tablefmt='fancy_grid', showindex=True))
+                    print(tabulate(df.tail(), headers='keys', tablefmt='fancy_grid', showindex=True))
+
+                print("\n" + "="*50)
+                print("✅ End of CSV Display".center(50))
+                print("="*50)
+
+            else:
+                print("❌ Invalid choice.")
+        except ValueError:
+            print("❌ Please enter a valid number.")
+
     elif choice == "4":
         print("Loading 4")
     elif choice == "5":
