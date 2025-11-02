@@ -123,3 +123,6 @@ def admin_login():
             break  # Exit the while loop to return to the main menu
         else:
             console.print("Invalid choice.", style="red")
+# Run admin menu when file is executed directly
+if __name__ == "__main__":
+    admin_login()

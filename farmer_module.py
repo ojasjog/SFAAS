@@ -4,16 +4,92 @@
 import os
 import pandas as pd
 from tabulate import tabulate
-from config import console, FARMERS_FILE, DATA_CSV_FOLDER
+from config import console, FARMERS_FILE, DATA_CSV_FOLDER, FORECAST_FILE
 from file_utils import read_data, save_entry
-
+import json
+from config import FARMERS_FILE, console
 # Set pandas option
+
 pd.set_option('display.max_rows', None)
 
 # --- Farmer Menu Actions ---
 
 def view_seasonal_forecast():
-    print("Loading 1... (Functionality not yet implemented)")
+    """Displays all seasonal forecasts in a clean table, flattening mixed data."""
+    console.print("\n=== Seasonal Forecasts ===", style="bold cyan")
+
+    try:
+        with open(FORECAST_FILE, "r") as f:
+            forecasts = json.load(f)
+
+        if not forecasts:
+            console.print("⚠ No forecasts found.", style="yellow")
+            return
+
+        table_data = []
+        for fc in forecasts:
+            # --- Handle missing or malformed entries safely ---
+            if not isinstance(fc, dict):
+                continue
+
+            season = str(fc.get("season", "N/A")).strip()
+            region = str(fc.get("region", "N/A")).strip()
+
+            # Dates can come as dict or string
+            dates = fc.get("dates", {})
+            if isinstance(dates, dict):
+                start_date = str(dates.get("start", "N/A"))
+                end_date = str(dates.get("end", "N/A"))
+            elif isinstance(dates, str) and "->" in dates:
+                start_date, end_date = map(str.strip, dates.split("->"))
+            else:
+                start_date = end_date = str(dates)
+            date_range = f"{start_date} → {end_date}"
+
+            # Weather details can be dict or plain strings
+            weather = fc.get("weather_forecast", {})
+            if isinstance(weather, dict):
+                rainfall = str(weather.get("rainfall", "N/A"))
+                temperature = str(weather.get("temperature", "N/A"))
+                humidity = str(weather.get("humidity", "N/A"))
+            else:
+                rainfall = temperature = humidity = str(weather)
+
+            # Crop suggestions and pest alerts
+            crops = fc.get("crop_suggestions", [])
+            pests = fc.get("pest_alert", [])
+
+            # Convert lists or strings to uniform text
+            if isinstance(crops, list):
+                crops = ", ".join(crops)
+            if isinstance(pests, list):
+                pests = ", ".join(pests)
+
+            crops = str(crops or "N/A")
+            pests = str(pests or "N/A")
+
+            # Add to table
+            table_data.append([
+                season, region, date_range,
+                rainfall, temperature, humidity,
+                crops, pests
+            ])
+
+        headers = [
+            "Season", "Region", "Date Range",
+            "Rainfall (mm)", "Temperature (°C)", "Humidity (%)",
+            "Crop Suggestions", "Pest Alerts"
+        ]
+
+        print()
+        print(tabulate(table_data, headers=headers, tablefmt="grid", showindex=True))
+
+    except FileNotFoundError:
+        console.print("⚠ forecasts.json file not found.", style="red")
+    except json.JSONDecodeError:
+        console.print("⚠ Error reading forecasts.json (invalid JSON).", style="red")
+    except Exception as e:
+        console.print(f"⚠ Unexpected error: {e}", style="red")
 
 def access_crop_advisories():
     print("Loading 2... (Functionality not yet implemented)")
@@ -157,3 +233,18 @@ def farmer_login():
     
     if not found:
         console.print("❌ Invalid credentials. Please try again.", style="red")
+# Run farmer menu when file is executed directly
+if __name__ == "__main__":
+    console.print("\n--- Farmer Access Portal ---", style="bold underline")
+    print("1. Login as existing farmer")
+    print("2. Register new farmer")
+    print("3. Exit")
+
+    choice = input("Enter choice: ")
+
+    if choice == "1":
+        farmer_login()
+    elif choice == "2":
+        register_farmer()
+    else:
+        console.print("Exiting...", style="red")
