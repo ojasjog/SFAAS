@@ -1,0 +1,58 @@
+{
+    "report_generated_on": "2025-11-04T23:42:17.030680",
+    "overall_stats": {
+        "total_forecasts": 176,
+        "avg_rainfall_mm": 125.0,
+        "avg_temp_c": 27.0,
+        "avg_humidity_percent": 43.5
+    },
+    "regional_breakdown": {
+        "Asia": {
+            "count": 2,
+            "avg_rainfall_mm": 125.0,
+            "avg_temp_c": 27.0,
+            "avg_humidity_percent": 43.5
+        },
+        "Unknown": {
+            "count": 174,
+            "avg_rainfall_mm": 0.0,
+            "avg_temp_c": 0.0,
+            "avg_humidity_percent": 0.0
+        }
+    },
+    "trends": {
+        "seasons": {
+            "Summer": 2,
+            "Unknown": 174
+        },
+        "top_crops": [
+            [
+                "Rice",
+                1
+            ],
+            [
+                "Wheat",
+                1
+            ]
+        ],
+        "top_pests": [
+            [
+                "No Pests",
+                1
+            ],
+            [
+                "Caterpillar",
+                1
+            ]
+        ]
+    },
+    "data_quality": {
+        "missing_entries": {
+            "rainfall": 174,
+            "temperature": 174,
+            "humidity": 174,
+            "region": 174,
+            "season": 174
+        }
+    }
+}
