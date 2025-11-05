@@ -62,7 +62,7 @@ def update_delete_forecast():
         if idx == 0 or idx > len(forecasts):
             return
     except ValueError:
-        return # Handle non-integer input gracefully
+        return 
 
     action = input("(U)pdate / (D)elete? ").lower().strip()
 
@@ -147,60 +147,7 @@ def upload_bulk_data():
         console.print(f"⚠ Directory '{DATA_CSV_FOLDER}' not found.", style="red")
         return
 
-<<<<<<< HEAD
-    csv_files = [f for f in os.listdir(DATA_CSV_FOLDER) if f.endswith('.csv')]
-    if not csv_files:
-        console.print("⚠ No CSV files found in folder.", style="yellow")
-        return
 
-    console.print("\nChoose CSV to upload:", style="bold cyan")
-    for i, f in enumerate(csv_files, start=1):
-        print(f"{i}. {f}")
-
-    try:
-        idx = int(input("File number: ")) - 1
-        if idx < 0 or idx >= len(csv_files):
-            console.print("❌ Invalid choice", style="red")
-            return
-    except:
-        console.print("❌ Invalid input", style="red")
-        return
-
-    file_path = os.path.join(DATA_CSV_FOLDER, csv_files[idx])
-
-    import pandas as pd
-    try:
-        df = pd.read_csv(file_path)
-    except Exception as e:
-        console.print(f"⚠ Error reading CSV: {e}", style="red")
-        return
-
-    # Build entries list
-    new_entries = []
-    for _, row in df.iterrows():
-        entry = {
-            "season": row.get('season', ''),
-            "region": row.get('region', ''),
-            "dates": {"start": row.get('start_date',''), "end": row.get('end_date','')},
-            "weather_forecast": {
-                "rainfall": row.get('rainfall',''),
-                "temperature": row.get('temperature',''),
-                "humidity": row.get('humidity','')
-            },
-            "crop_suggestions": [c.strip() for c in str(row.get('crop_suggestions','')).split(',')],
-            "pest_alert": [p.strip() for p in str(row.get('pest_alert','')).split(',')],
-            "timestamp": datetime.now().isoformat()
-        }
-        new_entries.append(entry)
-
-    # Append all rows at once
-    existing = read_data(FORECAST_FILE)
-    existing.extend(new_entries)
-    write_data(FORECAST_FILE, existing)
-
-    console.print(f"✅ Bulk imported {len(new_entries)} records from {csv_files[idx]}", style="green")
-
-=======
     files = [f for f in os.listdir(DATA_CSV_FOLDER) if f.endswith(".csv")]
     if not files:
         console.print("⚠ No CSVs found.", style="yellow")
@@ -266,7 +213,7 @@ def upload_bulk_data():
         console.print(f"❌ Error: File not found at {path}", style="red")
     except Exception as e:
         console.print(f"❌ An error occurred during processing: {e}", style="red")
->>>>>>> 46d5c2e9653d8635929cf83ebb21c573bff2b933
+
 
 def generate_reports():
     forecasts = read_data(FORECAST_FILE)
@@ -277,7 +224,7 @@ def generate_reports():
     console.print("\n[bold cyan]Generating comprehensive forecast report...[/bold cyan]")
 
     # --- 1. Data Processing ---
-    # Initialize containers
+  
     total_forecasts = len(forecasts)
     all_crops = []
     all_pests = []
@@ -832,14 +779,10 @@ def admin_login():
         print("4. Upload Bulk Forecast Data")
         print("5. Generate Reports")
         print("6. Manage Farmer Queries")
-<<<<<<< HEAD
-        print("7. Generate Bulk Reports (from CSV)")
-        print("8. Logout")
-=======
         print("7. Upload Historical Temperature Data")
         print("8. Generate Temperature Reports")
         print("9. Logout")
->>>>>>> 46d5c2e9653d8635929cf83ebb21c573bff2b933
+
 
         choice = input("Enter choice: ")
 
@@ -856,15 +799,10 @@ def admin_login():
         elif choice == "6":
             manage_farmer_queries()
         elif choice == "7":
-<<<<<<< HEAD
-            generate_bulk_reports()
-        elif choice == "8":
-=======
             upload_historical_temps()
         elif choice == "8":
             generate_historical_report() # <-- NEW OPTION
         elif choice == "9":
->>>>>>> 46d5c2e9653d8635929cf83ebb21c573bff2b933
             console.print("Logging out...", style="red")
             break
         else:
