@@ -5,14 +5,8 @@
         "region": "india"
     },
     {
-        "username": "sena",
-        "password": "pati",
-        "region": "usa",
-        "updated_on": "2025-11-03T22:16:57.985092"
-    },
-    {
-        "username": "riddhima",
-        "password": "jain",
-        "region": "ohio"
+        "username": "abc",
+        "password": "123",
+        "region": "k"
     }
 ]
