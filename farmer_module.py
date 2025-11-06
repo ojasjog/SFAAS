@@ -99,7 +99,7 @@ def search_historical_data():
         return
         
     # 5. Get search term (this is the simplified part)
-    search_term = input("Enter search term: ").strip().lower()
+    search_term = input("Enter search term (Crops and livestock products/Area Code/Element Code/ India/ Iteam name): ").strip().lower()
     if not search_term:
         console.print("Search cancelled.", style="yellow")
         return
@@ -176,7 +176,7 @@ def submit_query(username):
     
     # Write the data back
     try:
-        write_data(f, arr)  # Assuming write_data(f, arr) works
+        write_data(f, arr) 
         console.print("✅ Query sent.", style="green")
     except Exception as e:
         console.print(f"❌ Error saving query: {e}", style="red")

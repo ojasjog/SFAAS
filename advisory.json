@@ -1,13 +1,10 @@
-<<<<<<< HEAD
 [
     {
-        "Crop": "rice",
-        "Season": "j",
-        "Practices": "j",
-        "Fertilizers": "j",
-        "Precaution": "j",
-        "timestamp": "2025-11-06T00:20:58.893172"
+        "Crop": "Rice",
+        "Season": "Summer",
+        "Practices": "No ",
+        "Fertilizers": "NA",
+        "Precaution": "be careful",
+        "timestamp": "2025-11-06T08:00:11.837391"
     }
 ]
-=======
->>>>>>> 46d5c2e9653d8635929cf83ebb21c573bff2b933
