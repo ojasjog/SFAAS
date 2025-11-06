@@ -1,8 +1,0 @@
-{
-    "type": "bulk_csv_report",
-    "total_records": 8642,
-    "avg_rain": null,
-    "avg_temp": null,
-    "avg_humidity": null,
-    "timestamp": "2025-11-06T00:21:29.679080"
-}
