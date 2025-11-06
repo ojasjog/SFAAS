@@ -245,11 +245,16 @@ def generate_reports():
 
     # Loop through all forecasts ONCE
     for f in forecasts:
+        if not f.get("season") or not f.get("region"):
+            continue
         region = f.get("region") or "Unknown"
         season = f.get("season") or "Unknown"
         
-        if region == "Unknown": missing_data["region"] += 1
-        if season == "Unknown": missing_data["season"] += 1
+        if f.get("region") in ["", None]:
+         missing_data["region"] += 1
+
+        if f.get("season") in ["", None]:
+         missing_data["season"] += 1
         
         all_seasons.append(season)
 
@@ -629,8 +634,6 @@ def generate_bulk_reports():
 
 
 
-
-
 def manage_farmer_queries():
     file = "queries.json"
     data = []  # Default to an empty list
@@ -777,12 +780,12 @@ def admin_login():
         print("2. Update/Delete Forecast")
         print("3. Manage Crop Advisories")
         print("4. Upload Bulk Forecast Data")
-        print("5. Generate Reports")
-        print("6. Manage Farmer Queries")
-        print("7. Upload Historical Temperature Data")
-        print("8. Generate Temperature Reports")
-        print("9. Logout")
-
+        print("5. Generate Forecast Report (Manual Entries Only)")
+        print("6. Generate Bulk CSV Weather Stats")
+        print("7. Manage Farmer Queries")
+        print("8. Upload Historical Temperature Data")
+        print("9. Generate Temperature Reports")
+        print("10. Logout")
 
         choice = input("Enter choice: ")
 
@@ -795,15 +798,15 @@ def admin_login():
         elif choice == "4":
             upload_bulk_data()
         elif choice == "5":
-            generate_reports()
+            generate_reports()   # Manual Forecasts report
         elif choice == "6":
-            manage_farmer_queries()
+            generate_bulk_reports()  # Bulk CSV crop stats
         elif choice == "7":
-            upload_historical_temps()
+            manage_farmer_queries()
         elif choice == "8":
-            generate_historical_report() # <-- NEW OPTION
+            upload_historical_temps()
         elif choice == "9":
+         generate_historical_report()
+        elif choice == "10":
             console.print("Logging out...", style="red")
             break
-        else:
-            console.print("Invalid choice.", style="red")
